@@ -13,7 +13,10 @@ class Noun:
     number = "undef"  # sing plur
     animacy = "undef"
     caselist = []
-    hypotheses = []
+
+    def __init__(self):
+        self.hypotheses = []
+        self.caselist = []
 
     morph = pymorphy2.MorphAnalyzer()
 
@@ -106,6 +109,7 @@ class Noun:
 
 
 
+
         if nums == 2 or nums == 0:
             m = searchobj.lastindex
             self.number = "plur"
@@ -148,7 +152,6 @@ class Noun:
     def get_tags(self):
         h = self.hypotheses
         self.hypotheses = []
-
         return h
 
     def morphy(self, word):
@@ -171,5 +174,6 @@ class Noun:
         else:
             return 2
 
+    def __del__(self):
 
-
+        print('Object destroyed')

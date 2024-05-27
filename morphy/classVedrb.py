@@ -21,7 +21,11 @@ class Verb:
 
     morph = pymorphy2.MorphAnalyzer()
     morphemes = []
-    hypotheses = []
+
+    def __init__(self):
+        self.hypotheses = []
+        self.morphemes = ['']
+
 
     def find_tags(self, word):
         m = re.search("(ся)$|(сь)$", word)  # возвраность
@@ -29,7 +33,7 @@ class Verb:
         if m is not None:
             g = m.lastindex
             self.reflexivity = 'reflect'
-            self.morphemes.append(word[m.start(g):])
+            self.morphemes[0]= word[m.start(g):]
             word = word[:m.start(g)]  # ПЕРЕЗАПИСЬ
         else:
             self.reflexivity = 'unreflect'
@@ -90,7 +94,8 @@ class Verb:
             self.throw_tags()
 
     def push_tags(self, word):
-        hypo = {'word': word,
+        hypo = {'word': word+self.morphemes[0],
+                'part_of_speech': 'VERB',
                 'isinfinitive': self.isinfinitive,
                 'transitivity': self.transitivity,
                 'reflexivity': self.reflexivity,
@@ -121,3 +126,7 @@ class Verb:
     def morphy(self, word):
         self.find_tags(word)
         return self.get_tags()
+
+    def __del__(self):
+        print('Inside destructor')
+        print('Object destroyed')

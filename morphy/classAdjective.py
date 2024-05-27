@@ -6,7 +6,9 @@ class Adjective:
     gender = 'undef'
     number = 'undef'
     case = 'undef'
-    hypotheses = []
+
+    def __init__(self):
+        self.hypotheses = []
 
     def find_tags(self, word):
         endings = {
@@ -48,7 +50,7 @@ class Adjective:
                 self.push_tags(word)
 
     def push_tags(self,wr):
-        self.hypotheses.append({'word': wr, 'gender': self.gender, 'number': self.number, 'case': self.case})
+        self.hypotheses.append({'word': wr,'part_of_speech': 'ADJF', 'gender': self.gender, 'number': self.number, 'case': self.case})
 
     def get_tags(self):
         h = self.hypotheses
@@ -58,3 +60,7 @@ class Adjective:
     def get_morphy(self, word):
         self.find_tags(word)
         return self.get_tags()
+
+    def __del__(self):
+        print('Inside destructor')
+        print('Object destroyed')

@@ -68,6 +68,7 @@ def get_pnoun(word):
         if i["word"] == word:
             res = {
                 "word": word,
+                'part_of_speech': 'NOUNP',
                 "person": i["person"],
                 "number": i["number"],
                 "case": i["case"],
