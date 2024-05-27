@@ -1,0 +1,495 @@
+version: "3.0"
+id: morphy
+shortName: Морфологический  анализатор
+description: БЗ для предоставления синтаксического разбора предложения на основе морфологических признаков входящих в него слов.
+createdDate: 2024-05-23T08:27:52.653098Z
+modifiedDate: 2024-05-27T11:59:58.4359807Z
+tags:
+    - id: env_prop
+      shortName: Свойства окружения
+      description: Информация, необходимая для принятия решения и не относящаяся к текущему слову
+      createdDate: 2024-05-25T13:26:23.7803245Z
+      modifiedDate: 2024-05-27T11:59:58.4370149Z
+    - id: word_prop
+      shortName: Свойства текущего слова
+      description: Морфологические признаки рассматриваемого слова и заключения по нему
+      createdDate: 2024-05-25T13:25:01.236061Z
+      modifiedDate: 2024-05-27T11:59:58.4380506Z
+parameters:
+    - id: en_tense
+      shortName: время окружения
+      description: ""
+      createdDate: 2024-05-27T12:49:27.0912709Z
+      modifiedDate: 2024-05-27T12:49:27.0912709Z
+      tags:
+        - env_prop
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: number
+      shortName: '  Число'
+      description: |-
+        Допустимые значения:
+
+                'sing',  # единственное число
+                'plur',  # множественное число
+      createdDate: 2024-05-23T10:05:19.4180904Z
+      modifiedDate: 2024-05-27T11:59:58.4462956Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: en_number
+      shortName: число окружения
+      description: ""
+      createdDate: 2024-05-27T12:46:23.3971507Z
+      modifiedDate: 2024-05-27T12:46:25.3509778Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: cases
+      shortName: Падеж
+      description: |-
+        Допустимые значения:
+
+                'nomn',  # именительный падеж
+                'gent',  # родительный падеж
+                'datv',  # дательный падеж
+                'accs',  # винительный падеж
+                'ablt',  # творительный падеж
+                'loct',  # предложный падеж
+      createdDate: 2024-05-23T10:10:16.8350238Z
+      modifiedDate: 2024-05-27T11:59:58.452755Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: sintrole
+      shortName: Роль в предложении
+      description: "        'subject',  # подлежащее\n        'action',  # сказуемое\n        'object',  # дополнение\n        'definition',  # определение\n        "
+      createdDate: 2024-05-23T12:57:50.0713561Z
+      modifiedDate: 2024-05-27T11:59:58.4516151Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: en_persons
+      shortName: лицо окружения
+      description: ""
+      createdDate: 2024-05-27T12:48:11.4487317Z
+      modifiedDate: 2024-05-27T12:48:13.2915926Z
+      tags:
+        - env_prop
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: en_cases
+      shortName: падеж окружения
+      description: ""
+      createdDate: 2024-05-27T12:47:07.948819Z
+      modifiedDate: 2024-05-27T12:47:25.0198976Z
+      tags:
+        - env_prop
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: gender
+      shortName: Род
+      description: |-
+        Допустивые значения:
+
+                'masc',  # мужской род
+                'femn',  # женский род
+                'neut',  # средний род
+      createdDate: 2024-05-23T10:04:19.8138798Z
+      modifiedDate: 2024-05-27T11:59:58.4601156Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: has_prep
+      shortName: Наличие предлога
+      description: "Флажок наличия предлога перед словом. \n\n    true # есть предлог\n    false # нет предлога"
+      createdDate: 2024-05-25T12:41:58.1680993Z
+      modifiedDate: 2024-05-27T11:59:58.4494709Z
+      tags: []
+      type: boolean
+      defaultValue: false
+      isSecret: false
+    - id: is_subj
+      shortName: Подлежащее?
+      description: ""
+      createdDate: 2024-05-25T13:27:27.7209112Z
+      modifiedDate: 2024-05-27T11:59:58.450548Z
+      tags: []
+      type: boolean
+      defaultValue:
+      isSecret: false
+    - id: part_of_speech
+      shortName: Часть речи
+      description: "Допустимые значения:\n\n        'NOUN',  # имя существительное \n        'ADJF',  # имя прилагательное (полное)  \n        'ADJS',  # имя прилагательное (краткое)  \n        'VERB',  # глагол (личная форма)     \n        'PRTF',  # причастие (полное)  \n        'PRTS',  # причастие (краткое)\n        'GRND',  # деепричастие\n        'NUMR',  # числительное\n        'ADVB',  # наречие\n        'NPRO',  # местоимение-существительное\n        'PREP',  # предлог\n        'CONJ',  # союз\n        'PRCL',  # частица\n        'INTJ',  # междометие"
+      createdDate: 2024-05-23T08:42:17.7524127Z
+      modifiedDate: 2024-05-27T11:59:58.4570152Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: en_gender
+      shortName: род окружения
+      description: ""
+      createdDate: 2024-05-27T12:45:39.9810479Z
+      modifiedDate: 2024-05-27T12:45:41.599997Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: is_obj
+      shortName: Дополнение?
+      description: ""
+      createdDate: 2024-05-25T13:28:13.0563143Z
+      modifiedDate: 2024-05-27T11:59:58.4434898Z
+      tags: []
+      type: boolean
+      defaultValue:
+      isSecret: false
+    - id: animacy
+      shortName: Одушевленность
+      description: |-
+        Допустимые значения:
+
+                'anim',  # одушевлённое
+                'inan',  # неодушевлённое
+      createdDate: 2024-05-23T10:03:27.2934227Z
+      modifiedDate: 2024-05-27T11:59:58.4584783Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: declention
+      shortName: склонение
+      description: |4-
+          'first',  # 1 склонение
+          'second',  # 2 склонение
+          'third',  # 3 склонение
+      createdDate: 2024-05-23T10:25:39.3323578Z
+      modifiedDate: 2024-05-27T11:59:58.448405Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: num_in_sent
+      shortName: Номер слова в предложении
+      description: ""
+      createdDate: 2024-05-25T12:31:10.6322407Z
+      modifiedDate: 2024-05-27T11:59:58.4648213Z
+      tags: []
+      type: double
+      defaultValue: ""
+      isSecret: false
+    - id: tenses
+      shortName: Время
+      description: |4-
+          'pres',  # настоящее время
+          'past',  # прошедшее время
+          'futr',  # будущее время
+      createdDate: 2024-05-23T10:14:55.3475951Z
+      modifiedDate: 2024-05-27T11:59:58.4450903Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: isinfinitive
+      shortName: инфин (гл)
+      description: |4-
+          'true',  # является инфинитивом
+          'false',  # не является инфинитивом
+      createdDate: 2024-05-23T12:14:44.487445Z
+      modifiedDate: 2024-05-27T11:59:58.4627832Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: is_action
+      shortName: Сказуемое?
+      description: ""
+      createdDate: 2024-05-25T13:29:20.0815767Z
+      modifiedDate: 2024-05-27T11:59:58.4396531Z
+      tags: []
+      type: boolean
+      defaultValue:
+      isSecret: false
+    - id: en_pos
+      shortName: часть речи окружения
+      description: ""
+      createdDate: 2024-05-27T12:48:47.0035114Z
+      modifiedDate: 2024-05-27T12:48:56.7319275Z
+      tags:
+        - env_prop
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: prep_word
+      shortName: предлог
+      description: хранит предлог при наличии
+      createdDate: 2024-05-27T13:09:27.9345737Z
+      modifiedDate: 2024-05-27T13:09:55.1486192Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: aspects
+      shortName: Вид (глагола)
+      description: |-
+        Допустимые значения:
+
+                'perf',  # совершенный вид
+                'impf',  # несовершенный вид
+      createdDate: 2024-05-23T10:11:06.8454276Z
+      modifiedDate: 2024-05-27T11:59:58.4543273Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: persons
+      shortName: Лицо
+      description: |4-
+          '1per',  # 1 лицо
+          '2per',  # 2 лицо
+          '3per',  # 3 лицо
+      createdDate: 2024-05-23T10:13:17.2282405Z
+      modifiedDate: 2024-05-27T11:59:58.461719Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: transitivity
+      shortName: Переходность (гл)
+      description: |4-
+          'tran',  # переходный
+          'intr',  # непереходный
+      createdDate: 2024-05-23T10:12:30.1145888Z
+      modifiedDate: 2024-05-27T11:59:58.4554175Z
+      tags: []
+      type: string
+      defaultValue:
+      isSecret: false
+    - id: is_defin
+      shortName: Определение?
+      description: ""
+      createdDate: 2024-05-25T13:30:48.4045996Z
+      modifiedDate: 2024-05-27T11:59:58.4424326Z
+      tags: []
+      type: boolean
+      defaultValue:
+      isSecret: false
+patterns:
+    - id: is_action
+      shortName: Проверка сказуемого
+      description: "Проверяет, являяется ли слово сказуемым. \nРассматриваются два варианта:  \n \n1. Согласование глагола с подлежащим-существительным;\n2. Согласование глагола с полежащим-местоимением;"
+      createdDate: 2024-05-25T13:05:30.7882416Z
+      modifiedDate: 2024-05-27T11:59:58.4658789Z
+      type: program
+      inputParameters:
+        - shortName: num
+          type: string
+        - shortName: gen
+          type: string
+        - shortName: pers
+          type: string
+        - shortName: subj_num
+          type: string
+        - shortName: subj_pers
+          type: string
+        - shortName: subj_gen
+          type: string
+        - shortName: subj_pos
+          type: string
+        - shortName: pos
+          type: string
+      outputParameters:
+        - shortName: res
+          type: string
+      programFields:
+        language: js
+        script: ""
+    - id: is_subject
+      shortName: Является существительным?
+      description: ""
+      createdDate: 2024-05-24T09:33:24.0831785Z
+      modifiedDate: 2024-05-27T11:59:58.4679134Z
+      type: program
+      inputParameters:
+        - shortName: pos
+          type: string
+        - shortName: cas
+          type: string
+      outputParameters:
+        - shortName: result
+          type: boolean
+      programFields:
+        language: js
+        script: |-
+            var result, pos, cas
+            if ((pos == "NOUN" || pos == "NPRO") && cas == "nomn"){
+                result = true;
+            } else if (pos == "NOUN" || pos == "NPRO") {
+                result = false;
+            }else { 
+                result = false; 
+            };
+    - id: is_object
+      shortName: Дополнение?
+      description: ""
+      createdDate: 2024-05-27T13:01:52.3468357Z
+      modifiedDate: 2024-05-27T13:24:55.4798851Z
+      type: program
+      inputParameters:
+        - shortName: pos
+          type: string
+        - shortName: cas
+          type: string
+      outputParameters:
+        - shortName: isobj
+          type: boolean
+      programFields:
+        language: js
+        script: "var pos, cas, hasprep, isobj;\n\nif ((pos ==  'NOUN' || pos == 'NPRO') && cas != 'nomn'){\n  isobj = true;\n  }else{ \n  isobj = false;\n}"
+    - id: is_definition
+      shortName: Определение?
+      description: ""
+      createdDate: 2024-05-27T14:12:56.2974817Z
+      modifiedDate: 2024-05-27T14:14:03.3341479Z
+      type: program
+      inputParameters:
+        - shortName: pos
+          type: string
+        - shortName: enpos
+          type: string
+        - shortName: cas
+          type: string
+        - shortName: encas
+          type: string
+        - shortName: num
+          type: string
+        - shortName: ennum
+          type: string
+      outputParameters:
+        - shortName: isdef
+          type: boolean
+      programFields:
+        language: js
+        script: |-
+            var pos, cas, num, isdef, enpos, encas, ennum;
+            
+            isdef = false;                        
+            if (pos ==  "ADJF" && (enpos == "NPRO" || enpos == "NOUN")){
+              if (cas == encas && num == ennum){
+                isdef = true;
+              }
+            }   
+
+    - id: decision
+      shortName: Принятие решения о роли
+      description: ""
+      createdDate: 2024-05-25T13:36:37.0052573Z
+      modifiedDate: 2024-05-27T11:59:58.4689765Z
+      type: program
+      inputParameters:
+        - shortName: obj
+          type: boolean
+        - shortName: subj
+          type: boolean
+        - shortName: act
+          type: boolean
+        - shortName: defin
+          type: boolean
+      outputParameters:
+        - shortName: res
+          type: string
+      programFields:
+        language: js
+        script: |-
+            var  subj, obj, act, defin, res;
+            if (subj){
+              res = "subject";
+            }else if(obj){
+              res = "object";
+            }else if(act){
+              res = "action";
+            }else if(defin){
+              res = "definition";
+            }
+rules:
+    - id: decision_rule
+      shortName: Вердикт
+      description: ""
+      createdDate: 2024-05-25T13:48:09.0471963Z
+      modifiedDate: 2024-05-27T11:59:58.475092Z
+      tags: []
+      patternID: decision
+      inputParameters:
+        - shortName: obj
+          parameterID: is_obj
+        - shortName: subj
+          parameterID: is_subj
+        - shortName: act
+          parameterID: is_action
+        - shortName: defin
+          parameterID: is_defin
+      outputParameters:
+        - shortName: res
+          parameterID: sintrole
+    - id: is_def_rule
+      shortName: Является определением?
+      description: ""
+      createdDate: 2024-05-27T14:15:50.5507018Z
+      modifiedDate: 2024-05-27T14:15:51.2504744Z
+      tags: []
+      patternID: is_definition
+      inputParameters:
+        - shortName: pos
+          parameterID: part_of_speech
+        - shortName: enpos
+          parameterID: en_pos
+        - shortName: cas
+          parameterID: cases
+        - shortName: encas
+          parameterID: en_cases
+        - shortName: num
+          parameterID: number
+        - shortName: ennum
+          parameterID: en_number
+      outputParameters:
+        - shortName: isdef
+          parameterID: is_defin
+    - id: is_subject_rule
+      shortName: Правило для подлежащего
+      description: ""
+      createdDate: 2024-05-24T09:39:59.8971708Z
+      modifiedDate: 2024-05-27T14:13:15.7569575Z
+      tags: []
+      patternID: is_subject
+      inputParameters:
+        - shortName: pos
+          parameterID: part_of_speech
+        - shortName: cas
+          parameterID: cases
+      outputParameters:
+        - shortName: result
+          parameterID: is_subj
+    - id: is_object_rule
+      shortName: Является дополнением?
+      description: ""
+      createdDate: 2024-05-27T13:26:39.8863073Z
+      modifiedDate: 2024-05-27T13:26:43.4369904Z
+      tags: []
+      patternID: is_object
+      inputParameters:
+        - shortName: pos
+          parameterID: part_of_speech
+        - shortName: cas
+          parameterID: cases
+      outputParameters:
+        - shortName: isobj
+          parameterID: is_obj

@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "ae61808f-c139-4380-a072-5da57c3cb762",
+		"name": "morphy to LISA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35171661"
+	},
+	"item": [
+		{
+			"name": "Object LISA calculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"input\": {\r\n        \"cases\": \"accs\",\r\n        \"part_of_speech\": \"NPRO\",\r\n        \"has_prep\": \"false\",\r\n        \"is_action\": \"false\",\r\n        \"is_defin\": \"false\"\r\n    },\r\n    \"output\": [\r\n        \"sintrole\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/{{UUID}}/calculate",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{UUID}}",
+						"calculate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Def LISA calculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"input\": {\r\n    \"has_prep\": \"false\",\r\n    \"is_action\": \"false\",\r\n    \"cases\": \"nomn\",\r\n    \"part_of_speech\": \"ADJF\",\r\n    \"number\" : \"plur\",\r\n    \"en_pos\": \"NOUN\",\r\n    \"en_number\": \"plur\",\r\n    \"en_cases\": \"nomn\"\r\n\r\n  },\r\n  \"output\": [\r\n    \"sintrole\"\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/09e0d4c8-1043-4c2e-9e26-aaccf9430934/calculate",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"09e0d4c8-1043-4c2e-9e26-aaccf9430934",
+						"calculate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
